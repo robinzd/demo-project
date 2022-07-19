@@ -2,15 +2,35 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    counter: 20,
+    counter: 0,
     tags: ["robin", "tag2", "tag3"],
   };
+
+  incrementhandle = () => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
+
+  decrementhandle = () => {
+    this.setState({counter:this.state.counter - 1});
+  }
+
   render() {
     return (
       <div className="container">
+        <button
+          onClick={this.incrementhandle}
+          type="button"
+          className="btn btn-success"
+        >
+        +
+        </button>
         <span className={this.getbadgesclasses()}>{this.formatCount()}</span>
-        <button type="button" class="btn btn-primary">
-          Increment
+        <button
+          onClick={this.decrementhandle}
+          type="button"
+          className="btn btn-danger"
+        >
+         -
         </button>
         <ul>
           {this.state.tags.map((tag) => (
@@ -24,7 +44,11 @@ class Counter extends Component {
     let classes;
     if (this.state.counter == 0) {
       classes = "badge bg-danger m-2";
-    } else {
+    } 
+    else if(this.state.counter < 0){
+      classes = "badge bg-danger m-2";
+    }
+    else {
       classes = "badge bg-info text-dark m-2";
     }
     return classes;
@@ -34,7 +58,11 @@ class Counter extends Component {
     const { counter } = this.state;
     if (counter == 0) {
       return "Zero";
-    } else {
+    }
+    else if(counter < 0){
+      return "Zero";
+    }
+     else {
       return counter;
     }
   }
