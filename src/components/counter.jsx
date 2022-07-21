@@ -1,51 +1,60 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    counter: 0,
-    tags: ["robin", "tag2", "tag3"],
-  };
+  // state = {
+  //   value: this.props.counter.value
+  //   // tags: ["robin", "tag2", "tag3"],
+  // };
 
-  incrementhandle = () => {
-    this.setState({ counter: this.state.counter + 1 });
-  };
+  // incrementhandle = () => {
+  //   this.setState({ value: this.state.value + 1 });
+  // };
 
-  decrementhandle = () => {
-    this.setState({counter:this.state.counter - 1});
-  }
+  // decrementhandle = () => {
+  //   this.setState({counter:this.state.counter - 1});
+  // }
+
 
   render() {
-    return (
+  return (
       <div className="container">
-        <button
-          onClick={this.incrementhandle}
-          type="button"
-          className="btn btn-success"
-        >
-        +
-        </button>
-        <span className={this.getbadgesclasses()}>{this.formatCount()}</span>
-        <button
+        <h4>Id No:{this.props.counter.id}</h4>
+       <span className={this.getbadgesclasses()}>{this.formatCount()}</span>
+        {/* <button
           onClick={this.decrementhandle}
           type="button"
           className="btn btn-danger"
         >
          -
+        </button> */}
+         <button
+          onClick={() =>this.props.onincrement(this.props.counter)}
+          type="button"
+          className="btn btn-success"
+        >
+        Increment
         </button>
-        <ul>
+        <button
+         type="button"
+          onClick={() =>this.props.counterdelete(this.props.counter.id)} className="btn btn-danger m-2"
+        >
+       Delete
+        </button>
+
+        {/* <ul>
           {this.state.tags.map((tag) => (
             <li key={tag}>{tag}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     );
   }
   getbadgesclasses() {
     let classes;
-    if (this.state.counter == 0) {
+    if (this.props.counter.value == 0) {
       classes = "badge bg-danger m-2";
     } 
-    else if(this.state.counter < 0){
+    else if(this.props.counter.value  <= 0){
       classes = "badge bg-danger m-2";
     }
     else {
@@ -55,7 +64,7 @@ class Counter extends Component {
   }
 
   formatCount() {
-    const { counter } = this.state;
+    const { value: counter } = this.props.counter;
     if (counter == 0) {
       return "Zero";
     }
